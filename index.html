@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karolina Zapaśnik – Specjalistyczny Ośrodek Analiz Technologii Informatycznych</title>
+  <meta name="description" content="Niezależne analizy IT. Rzetelnie. Zwięźle. Na czas. Karolina Zapaśnik – Specjalistyczny Ośrodek Analiz Technologii Informatycznych." />
+  <meta name="author" content="Karolina Zapaśnik" />
+  <meta property="og:title" content="Karolina Zapaśnik – Specjalistyczny Ośrodek Analiz Technologii Informatycznych" />
+  <meta property="og:description" content="Niezależne analizy IT. Rzetelnie. Zwięźle. Na czas." />
+  <meta property="og:image" content="logo.JPG" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pl_PL" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <style>
+    :root{
+      --card-radius:18px;
+      --card-shadow: 3px 3px 8px rgba(0,0,0,0.08), -3px -3px 8px rgba(255,255,255,0.8);
+      --card-shadow-hover: 5px 5px 12px rgba(0,0,0,0.12), -5px -5px 12px rgba(255,255,255,0.9);
+      --green:#1a5b45;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html { scroll-behavior: smooth; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans"; color:#000; background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 40%, #eaeaea 100%); background-attachment: fixed; line-height:1.6; }
+    header, section, footer { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+
+    /* NAV */
+    header { display:none; justify-content:space-between; align-items:center; border-bottom:1px solid #ddd; position:sticky; top:0; background:rgba(255,255,255,0.9); backdrop-filter: blur(6px); box-shadow:0 2px 8px rgba(0,0,0,0.05); border-radius:0 0 12px 12px; z-index:10; }
+    nav { display:none; gap: .6rem; align-items:center; }
+    nav a { text-decoration:none; color:#000; font-size:0.9rem; font-weight:500; transition:all .2s; padding:10px 14px; border-radius:12px; }
+    nav a.active { background:rgba(0,0,0,0.05); box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2); font-weight:700; }
+
+    .menu-toggle { display:none; flex-direction:column; justify-content:center; width:30px; height:25px; cursor:pointer; gap:5px; }
+    .menu-toggle span { display:block; height:3px; width:100%; background:#000; border-radius:2px; transition: all .3s ease; }
+
+    /* MENU pojawia się dopiero od 900px w dół */
+    @media (max-width:900px){ 
+      header{display:flex;}
+      /* przyciski jak w hamburgerze, ale poziomo */
+      nav{display:flex;}
+      nav a{ background: linear-gradient(145deg,#fff,#f2f2f2); }
+      nav a:hover{ background:#efefef; font-weight:700; }
+    }
+
+    /* MAŁE ekrany: hamburger + rozwijane menu jako kafelki */
+    @media (max-width:768px){
+      .menu-toggle{display:flex;}
+      nav{display:none; flex-direction:column; background:rgba(255,255,255,0.95); border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); position:absolute; top:60px; right:20px; width:220px; padding:.75rem; }
+      nav.show{display:flex;}
+      nav a{display:block; background: linear-gradient(145deg,#fff,#f2f2f2); border-radius:10px; padding:10px 12px; margin:4px 0; font-weight:500;}
+      nav a:hover{ background:#efefef; font-weight:700; }
+      nav a.active{ background:#ececec; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2); }
+    }
+
+    /* HERO zawsze widoczny i WYŚRODKOWANY; bez podskakiwania */
+    .hero-wrap{ padding: 0 1rem; }
+    .hero{ display:flex; align-items:center; justify-content:center; }
+    .hero .section-card{ width: 100%; max-width: 1100px; margin: 2rem auto; }
+    .section-card{ background: linear-gradient(145deg,#ffffff,#f0f0f0); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 2rem; transition: transform .2s ease, box-shadow .2s ease; text-align:center; display:flex; flex-direction:column; align-items:center; }
+    /* hover dla zwykłych sekcji */
+    .section-card:hover{ transform: translateY(-3px); box-shadow: var(--card-shadow-hover); }
+    /* brak hover efektu dla hero i kontaktu */
+    .no-hover:hover{ transform:none; box-shadow: var(--card-shadow); }
+
+    .section-card-inner{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:2rem; flex-wrap:wrap; }
+    .hero-text{ text-align:left; margin-left: .5rem; }
+    .hero-text h1{ font-size:2.4rem; margin:.2rem 0 .5rem; }
+    .hero img{ width:160px; height:160px; border-radius:24px; object-fit:cover; border:1px solid #ccc; box-shadow:0 6px 15px rgba(0,0,0,0.1); }
+    /* Ukryj logo oraz pokaż przypięte menu dopiero, gdy trio przejdzie w jeden rząd (<=900px) */
+    @media (max-width:900px){ .hero img{ display:none; } }
+
+    /* Trio */
+    .trio{ display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; margin:2rem auto; padding: 0 3rem; max-width: 1100px; align-items:stretch; }
+    .trio .section-card{ height:100%; }
+
+    ul,ol{ padding-left:1.3rem; text-align:left; }
+
+    /* Kontakt — WYŚRODKOWANY i rozciągnięty jak hero */
+    #contact{ max-width: 1100px; margin: 2rem auto; }
+    #contact .email{ display:inline-flex; align-items:center; gap:6px; margin-top:.5rem; font-weight:600; text-decoration:none; color:var(--green); }
+    #contact .email .addr{ text-decoration: underline; }
+    #contact .email .icon{ text-decoration:none; }
+    #contact .email:hover{ color:#26795a; }
+    #contact p{ margin-top:.5rem; color:#333; }
+
+    footer{ text-align:center; border-top:1px solid #ddd; font-size:.9rem; color:#666; }
+
+    /* RESPONSIVE: gdy trio staje się jednokolumnowe (<=900px) */
+    @media (max-width:900px){
+      .trio{ grid-template-columns:1fr; padding: 0 1rem; }
+      .hero-wrap, #contact{ margin:2rem 1rem; }
+      header{display:flex;}
+      /* Ujednolicenie szerokości: pargrafy i listy w trio mają ten sam wewnętrzny offset */
+      .trio .section-card p,
+      .trio .section-card ul,
+      .trio .section-card ol{ padding-left: 1.3rem; margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <img src="logo.JPG" alt="Logo KZ" width="40" height="40" style="border-radius:8px;object-fit:cover;" onerror="this.style.display='none'" />
+      <div>
+        <strong>Karolina Zapaśnik</strong><br>
+        <small>Specjalistyczny Ośrodek Analiz Technologii Informatycznych</small>
+      </div>
+    </div>
+
+    <div class="menu-toggle" id="menuToggle" aria-label="menu"><span></span><span></span><span></span></div>
+    <nav id="mainNav">
+      <a href="#services">Zakres usług</a>
+      <a href="#about">O mnie</a>
+      <a href="#method">Metodyka</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+  </header>
+
+  <section class="hero-wrap">
+    <div class="hero section-card no-hover">
+      <div class="section-card-inner">
+        <div class="hero-text">
+          <h1>Karolina Zapaśnik</h1>
+          <p><strong>Specjalistyczny Ośrodek Analiz Technologii Informatycznych</strong></p>
+          <p>Niezależne analizy IT - Rzetelnie. Zwięźle. Na czas.</p>
+        </div>
+        <a href="https://karolinazapasnik.pl" aria-label="Przejdź do karolinazapasnik.pl">
+          <img src="logo.JPG" alt="Logo KZ" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="trio">
+    <section id="about" class="section-card">
+      <h2>O mnie</h2>
+      <p>Biegła z zakresu informatyki. Łączę praktykę projektową z analitycznym podejściem do dokumentacji i dowodów. Pracuję w oparciu o transparentną metodologię i powtarzalne kryteria oceny.</p>
+    </section>
+
+    <section id="services" class="section-card">
+      <h2>Zakres usług</h2>
+      <ul>
+        <li>Opinie i ekspertyzy z zakresu informatyki (w tym na potrzeby postępowań)</li>
+        <li>Ocena zgodności dostaw i usług IT z dokumentacją umowną i rozliczeniową</li>
+        <li>Weryfikacja wartości rynkowej sprzętu i usług IT</li>
+        <li>Analiza wdrożeń, architektury i ryzyk projektowych</li>
+      </ul>
+    </section>
+
+    <section id="method" class="section-card">
+      <h2>Metodyka pracy</h2>
+      <ol>
+        <li>Analiza dokumentów źródłowych (umowy, protokoły, korespondencja)</li>
+        <li>Porównanie zakresu świadczeń z fakturami i protokołami</li>
+        <li>Ocena techniczna oraz rynkowa (benchmarki, katalogi, cenniki)</li>
+        <li>Syntetyczne wnioski — bez rozstrzygania sporów (decyzja należy do Sądu)</li>
+      </ol>
+    </section>
+  </div>
+
+  <section id="contact" class="section-card no-hover">
+    <h2>Kontakt</h2>
+    <a class="email" href="mailto:km.zapasnik@gmail.com"><span class="icon">✉️</span><span class="addr">km.zapasnik@gmail.com</span></a>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Karolina Zapaśnik
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const links = mainNav.querySelectorAll('a');
+
+    menuToggle?.addEventListener('click', () => { mainNav.classList.toggle('show'); });
+    links.forEach(link => link.addEventListener('click', () => { if (mainNav.classList.contains('show')) mainNav.classList.remove('show'); }));
+
+    const sections = document.querySelectorAll('section[id]');
+    const highlight = () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (scrollY >= sectionTop) current = section.getAttribute('id');
+      });
+      links.forEach(link => {
+        link.classList.remove('active');
+        if (current && link.getAttribute('href').includes(current)) link.classList.add('active');
+      });
+    };
+    window.addEventListener('scroll', highlight);
+    highlight();
+  </script>
+</body>
+</html>
